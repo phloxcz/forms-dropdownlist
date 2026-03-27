@@ -1,0 +1,225 @@
+/**
+ * dropdownlist.css  –  phloxcz/forms-dropdownlist
+ *
+ * Functional layout + default theme.
+ *
+ * Color philosophy
+ * ----------------
+ * The default theme uses only CSS system colors (Canvas, Field, FieldText,
+ * ButtonFace, ButtonText, Highlight, HighlightText, GrayText) and
+ * currentColor / inherit. These values are defined by the browser and
+ * automatically follow the OS / browser color scheme — no media queries,
+ * no hardcoded hex values, no dark-mode overrides needed.
+ *
+ * Bootstrap theme  → Bootstrap's own classes + CSS variables handle everything.
+ *                    Only our custom elements (filter row, filter input) get
+ *                    scoped [data-bs-theme="dark"] rules using Bootstrap variables.
+ *
+ * Tailwind theme   → dark: variants live in the PHP class strings; no CSS here.
+ */
+
+/* ─── Layout (all themes) ─────────────────────────────────────────────────── */
+
+.dropdownlist-wrapper {
+    position: relative;
+}
+
+.dropdownlist-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1050;
+    width: 100%;
+    margin: 2px 0 0;
+    padding: 0;
+    overflow: visible;
+}
+
+.dropdownlist-list {
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.dropdownlist-combobox-dropdown {
+    list-style: none;
+    padding: 4px 0;
+    max-height: 260px;
+    overflow-y: auto;
+}
+
+/* ─── Default theme ───────────────────────────────────────────────────────── */
+/*
+ * All colors use CSS system colors so the component blends into whatever
+ * color scheme the page uses — light, dark, high-contrast — without any
+ * media queries or JS. No hex values are used for chromatic colors.
+ */
+
+.dropdownlist-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px 10px 6px 12px;
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+    color: ButtonText;
+    background: ButtonFace;
+    border: 1px solid ButtonBorder;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+    min-height: 2.25em;
+    text-align: left;
+    outline: none;
+}
+
+.dropdownlist-trigger:focus,
+.dropdownlist-trigger[aria-expanded="true"] {
+    outline: 2px solid Highlight;
+    outline-offset: 1px;
+}
+
+.dropdownlist-trigger-text {
+    flex: 1 1 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dropdownlist-trigger-placeholder {
+    color: GrayText;
+}
+
+.dropdownlist-trigger-arrow {
+    flex: 0 0 auto;
+    display: inline-block;
+    margin-left: 8px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid currentColor;
+    opacity: .6;
+    transition: transform .18s ease;
+}
+
+.dropdownlist-trigger[aria-expanded="true"] .dropdownlist-trigger-arrow {
+    transform: rotate(180deg);
+}
+
+/* Bootstrap's form-select has its own chevron – suppress ours */
+.dropdownlist-bs-trigger .dropdownlist-trigger-arrow {
+    display: none;
+}
+
+.dropdownlist-input {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: inherit;
+    font-family: inherit;
+}
+
+.dropdownlist-dropdown {
+    background: Canvas;
+    color: CanvasText;
+    border: 1px solid ButtonBorder;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .12);
+}
+
+.dropdownlist-filter {
+    padding: 6px 8px;
+    border-bottom: 1px solid ButtonBorder;
+}
+
+.dropdownlist-filter-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px 10px 5px 28px;
+    font-size: .875em;
+    font-family: inherit;
+    color: FieldText;
+    background-color: Field;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 8px center;
+    border: 1px solid ButtonBorder;
+    border-radius: 3px;
+    outline: none;
+}
+
+.dropdownlist-filter-input:focus {
+    outline: 2px solid Highlight;
+    outline-offset: 1px;
+}
+
+.dropdownlist-dropdown [role="option"][data-value] {
+    display: block;
+    padding: 7px 14px;
+    font-size: inherit;
+    cursor: pointer;
+    color: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dropdownlist-dropdown [role="option"][data-value]:hover,
+.dropdownlist-dropdown [role="option"].dropdownlist-active {
+    background-color: Highlight;
+    color: HighlightText;
+}
+
+.dropdownlist-dropdown [role="option"].dropdownlist-selected {
+    font-weight: 600;
+}
+
+.dropdownlist-no-results {
+    display: block;
+    padding: 8px 14px;
+    font-size: .875em;
+    font-style: italic;
+    color: GrayText;
+    cursor: default;
+}
+
+.dropdownlist-dropdown mark {
+    background: transparent;
+    color: Highlight;
+    font-weight: 700;
+    padding: 0;
+}
+
+/* ─── Bootstrap theme – dark mode ([data-bs-theme="dark"]) ───────────────── */
+/*
+ * Bootstrap's own classes respond to [data-bs-theme="dark"] automatically.
+ * We only need rules for our two custom elements that Bootstrap doesn't style:
+ * the filter row border and the filter input.
+ */
+
+[data-bs-theme="dark"] .dropdownlist-filter {
+    border-bottom-color: var(--bs-border-color-translucent);
+}
+
+[data-bs-theme="dark"] .dropdownlist-filter-input {
+    background-color: var(--bs-body-bg);
+    border-color: var(--bs-border-color);
+    color: var(--bs-body-color);
+}
+
+[data-bs-theme="dark"] .dropdownlist-filter-input:focus {
+    border-color: var(--bs-focus-ring-color, #86b7fe);
+    box-shadow: var(--bs-focus-ring-box-shadow, 0 0 0 2px rgba(134, 183, 254, .25));
+}
+
+/* ─── Tailwind theme ─────────────────────────────────────────────────────── */
+/* All styling, including dark: variants, is in the PHP class strings.        */
+
+.dropdownlist-wrapper.relative {
+    /* Tailwind's .relative already provides position:relative */
+}

@@ -1,0 +1,34 @@
+{
+    "name": "phloxcz/forms-dropdownlist",
+    "description": "Searchable DropDownList form control for Nette Framework with AJAX-powered Selection datasource.",
+    "type": "library",
+    "keywords": [
+        "nette",
+        "form",
+        "dropdownlist",
+        "select",
+        "autocomplete",
+        "ajax",
+        "nette-database"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/phloxcz/forms-dropdownlist",
+    "require": {
+        "php": ">=8.1",
+        "nette/application": "^3.1",
+        "nette/forms": "^3.1",
+        "nette/database": "^3.1",
+        "nette/di": "^3.1",
+        "nette/utils": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Phlox\\Forms\\DropDownList\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true
+    }
+}
