@@ -76,6 +76,7 @@
         if (!hidden || !panel || !filterInput || !listbox) return;
 
         const ajaxUrl = trigger.dataset.ajaxUrl;
+        const qParam  = trigger.dataset.qParam ?? 'q';
 
         const cls = {
             item:         trigger.dataset.clsItem         ?? '',
@@ -180,7 +181,7 @@
             if (fetchCtrl) fetchCtrl.abort();
             fetchCtrl = new AbortController();
             const url = new URL(ajaxUrl, window.location.href);
-            url.searchParams.set('q', query);
+            url.searchParams.set(qParam, query);
             try {
                 const resp = await fetch(url.toString(), {
                     signal: fetchCtrl.signal,
@@ -296,6 +297,7 @@
         if (!hidden || !dropdown) return;
 
         const ajaxUrl = input.dataset.ajaxUrl;
+        const qParam  = input.dataset.qParam ?? 'q';
 
         const cls = {
             item:         input.dataset.clsItem         ?? '',
@@ -381,7 +383,7 @@
             if (fetchCtrl) fetchCtrl.abort();
             fetchCtrl = new AbortController();
             const url = new URL(ajaxUrl, window.location.href);
-            url.searchParams.set('q', query);
+            url.searchParams.set(qParam, query);
             try {
                 const resp = await fetch(url.toString(), {
                     signal: fetchCtrl.signal,
